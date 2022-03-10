@@ -3,7 +3,7 @@ version: "3.7"
 services:
     webapp:
         build: .
-        container_name: django-crypto_default
+        container_name: django-crypto
         volumes:
             - .:/django-crontab
         env_file: .env

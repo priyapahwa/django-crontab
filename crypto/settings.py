@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +128,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 COIN_MARKET_API_KEY = 'COIN_MARKET_API_KEY'
+API_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
