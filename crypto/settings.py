@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from environ import Env
 
@@ -35,13 +35,14 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'crypto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +130,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 COIN_MARKET_API_KEY = 'COIN_MARKET_API_KEY'
 API_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+
+CRONJOBS = [
+    ('* * * * *', 'core.cron.fetch_price', '>> /cron/django_cron.log 2>&1'),
+]
+
+# https://pypi.org/project/django-crontab/
+CRONTAB_COMMAND_PREFIX = f'COIN_MARKET_API_KEY={COIN_MARKET_API_KEY}'
